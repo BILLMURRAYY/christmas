@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝘔𝘦𝘳𝘳𝘺 𝘊𝘩𝘳𝘪𝘴𝘵𝘮𝘢𝘴</title>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Oooh+Baby&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* @import url('https://fonts.googleapis.com/css2?family=Oooh+Baby&display=swap'); */
+        /* ส่วนที่ 1 */
+        body {
+            overflow-x: hidden;
+            background: linear-gradient(to right, rgba(179,220,237,1) 0%, rgb(42, 177, 165) 50%, rgba(188,224,238,1) 100%);
+            
+        }
+        a{
+            text-decoration: none;
+            color: white;
+            /* z-index: 2; */
+        }
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom:0;
+            /* z-index: 0; */
+            pointer-events: none;
+        }
+        /* ส่วนที่ 1 */
+
+
+        /** ไม่เกี่ยว */
+        .candycane-border{ 
+            --border: 12; /*only px value */
+            --borderW: calc(var(--border) * 1px);
+            border: var(--borderW) solid red; /*fallback*/
+            border-image-width: var(--borderW);
+            border-image:  
+                repeating-linear-gradient(
+                -45deg, 
+                green 0 calc(var(--borderW) * .5), 
+                white 0 calc(var(--borderW) * 1),
+                red 0 calc(var(--borderW) * 1.5), 
+                white 0 calc(var(--borderW) * 2)
+                ) var(--border);
+            position: relative;
+            
+        }
+        .candycane-border::after{
+            /* content: ''; */
+            position: absolute;
+            left: calc(var(--borderW) * -1);
+            top: calc(var(--borderW) * -1);
+            width: 100%;
+            height: 100%;
+            border: var(--borderW) double rgba(255,255,255,0.5);
+            /* z-index: 1; */
+        }
+        body{
+            height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            
+        }
+        div{
+            display: inline-block;
+            padding: 2rem;
+            font-family:  'Oooh Baby',cursive;
+            /* font-family: 'Mountains of Christmas', cursive; */
+            font-size: 10vmin;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            background: rgba(0,0,0,.5);
+            box-shadow: 
+                inset 0 0 0.25em red,
+                0 0 0.25em gold;
+            text-shadow:
+                0.05em 0.05em 0.05em rgba(255,0,0,.5),
+                0.02em 0.02em 0.02em rgba(0,0,0,.5);
+        }
+        
+        /** ไม่เกี่ยว */
+    </style>
+</head>
+<body>
+    
+    <!-- ส่วนที่ 2 -->
+    <canvas class="snow" id="snow" width="1848" height="515"></canvas>
+    <!-- ส่วนที่ 2 -->
+
+
+    <!-- ไม่เกี่ยว -->
+    <div class="candycane-border"><!--<br>𝘔𝘦𝘳𝘳𝘺𝘊𝘩𝘳𝘪𝘴𝘵𝘮𝘢𝘴 AppzStory Studio-->
+        <a href="https://youtu.be/Fb1-Diyzvtw">Merry Christmas</a>
+    </div>
+    <!-- ไม่เกี่ยว -->
+    
+    
+    <!-- ส่วนที่ 3 -->
+    <script>
+        
+        (function () {
+    
+        var canvas, ctx;
+        var points = [];
+        var maxDist = 100;
+            
+        function init() {
+            //Add on load scripts
+            canvas = document.getElementById("snow");
+            ctx = canvas.getContext("2d");
+            resizeCanvas();
+            pointFun();
+            setInterval(pointFun, 20);
+            window.addEventListener('resize', resizeCanvas, false);
+        }
+        //Particle constructor
+        function point() {
+            this.x = Math.random() * (canvas.width + maxDist) - (maxDist / 2);
+            this.y = Math.random() * (canvas.height + maxDist) - (maxDist / 2);
+            this.z = (Math.random() * 0.5) + 0.5;
+            this.vx = ((Math.random() * 2) - 0.5) * this.z;
+            this.vy = ((Math.random() * 1.5) + 1.5) * this.z;
+            this.fill = "rgba(255,255,255," + ((0.4 * Math.random()) + 0.5) + ")";
+            this.dia = ((Math.random() * 2.5) + 1.5) * this.z;
+            points.push(this);
+        }
+        //Point generator
+        function generatePoints(amount) {
+            var temp;
+            for (var i = 0; i < amount; i++) {
+                temp = new point();
+            };
+            // console.log(points);
+        }
+        //Point drawer
+        function draw(obj) {
+            ctx.beginPath();
+            ctx.strokeStyle = "transparent";
+            ctx.fillStyle = obj.fill;
+            ctx.arc(obj.x, obj.y, obj.dia, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.fill();
+        }
+        //Updates point position values
+        function update(obj) {
+            obj.x += obj.vx;
+            obj.y += obj.vy;
+            if (obj.x > canvas.width + (maxDist / 2)) {
+                obj.x = -(maxDist / 2);
+            }
+            else if (obj.xpos < -(maxDist / 2)) {
+                obj.x = canvas.width + (maxDist / 2);
+            }
+            if (obj.y > canvas.height + (maxDist / 2)) {
+                obj.y = -(maxDist / 2);
+            }
+            else if (obj.y < -(maxDist / 2)) {
+                obj.y = canvas.height + (maxDist / 2);
+            }
+        }
+        //
+        function pointFun() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < points.length; i++) {
+                draw(points[i]);
+                update(points[i]);
+            };
+        }
+    
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            generatePoints(window.innerWidth / 3);
+            pointFun();
+        }
+    
+        //Execute when DOM has loaded
+        document.addEventListener('DOMContentLoaded', init, false);
+    })();
+    
+    </script>
+    <!-- ส่วนที่ 3 -->
+
+</body>
+</html>
